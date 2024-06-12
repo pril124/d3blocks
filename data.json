@@ -1,0 +1,628 @@
+{
+    "name": "Notes (02/28/2024)",
+    "node_color": "#74D3AE",
+    "node_size": 10,
+    "tooltip": "Notes (02/28/2024)",
+    "edge_size": 1,
+    "edge_color": "#74D3AE",
+    "node_opacity": 0.95,
+    "font_color": "red",
+    "font_family": "Verdana",
+    "font_size": 15,
+    "children": [
+        {
+            "name": "Client Goals and Objectives",
+            "node_color": "#C62E65",
+            "node_size": 8,
+            "tooltip": "Client Goals and Objectives",
+            "edge_size": 1,
+            "edge_color": "#C62E65",
+            "node_opacity": 0.95,
+            "font_color": "#2F1847",
+            "font_family": "Verdana",
+            "font_size": 15,
+            "children": [
+                {
+                    "name": "Maintaining Income Protection Insurance",
+                    "node_color": "#EBD6AF",
+                    "node_size": 5,
+                    "tooltip": "Maintaining Income Protection Insurance",
+                    "edge_size": 1,
+                    "edge_color": "#EBD6AF",
+                    "node_opacity": 0.95,
+                    "font_color": "#2F1847",
+                    "font_family": "Verdana",
+                    "font_size": "12"
+                },
+                {
+                    "name": "Managing Superannuation Contributions",
+                    "node_color": "#EBD6AF",
+                    "node_size": 5,
+                    "tooltip": "Managing Superannuation Contributions",
+                    "edge_size": 1,
+                    "edge_color": "#EBD6AF",
+                    "node_opacity": 0.95,
+                    "font_color": "#2F1847",
+                    "font_family": "Verdana",
+                    "font_size": "12"
+                },
+                {
+                    "name": "Investment Strategies to Enhance Portfolio Returns",
+                    "node_color": "#EBD6AF",
+                    "node_size": 5,
+                    "tooltip": "Investment Strategies to Enhance Portfolio Returns",
+                    "edge_size": 1,
+                    "edge_color": "#EBD6AF",
+                    "node_opacity": 0.95,
+                    "font_color": "#2F1847",
+                    "font_family": "Verdana",
+                    "font_size": "12"
+                }
+            ]
+        },
+        {
+            "name": "Estate Planning",
+            "node_color": "#C62E65",
+            "node_size": 8,
+            "tooltip": "Estate Planning",
+            "edge_size": 1,
+            "edge_color": "#C62E65",
+            "node_opacity": 0.95,
+            "font_color": "#2F1847",
+            "font_family": "Verdana",
+            "font_size": 15,
+            "children": [
+                {
+                    "name": "Superannuation",
+                    "node_color": "#DD9787",
+                    "node_size": 5,
+                    "tooltip": "Superannuation",
+                    "edge_size": 1,
+                    "edge_color": "#DD9787",
+                    "node_opacity": 0.95,
+                    "font_color": "#2F1847",
+                    "font_family": "Verdana",
+                    "font_size": 12,
+                    "children": [
+                        {
+                            "name": "Goes to Lori",
+                            "node_color": "#EBD6AF",
+                            "node_size": 5,
+                            "tooltip": "Goes to Lori",
+                            "edge_size": 1,
+                            "edge_color": "#EBD6AF",
+                            "node_opacity": 0.95,
+                            "font_color": "#2F1847",
+                            "font_family": "Verdana",
+                            "font_size": "12"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Assets and Liabilities",
+            "node_color": "#C62E65",
+            "node_size": 8,
+            "tooltip": "Assets and Liabilities",
+            "edge_size": 1,
+            "edge_color": "#C62E65",
+            "node_opacity": 0.95,
+            "font_color": "#2F1847",
+            "font_family": "Verdana",
+            "font_size": 15,
+            "children": [
+                {
+                    "name": "Assets",
+                    "node_color": "#DD9787",
+                    "node_size": 5,
+                    "tooltip": "Assets",
+                    "edge_size": 1,
+                    "edge_color": "#DD9787",
+                    "node_opacity": 0.95,
+                    "font_color": "#2F1847",
+                    "font_family": "Verdana",
+                    "font_size": 12,
+                    "children": [
+                        {
+                            "name": "Australian Superannuation",
+                            "node_color": "#EBD6AF",
+                            "node_size": 5,
+                            "tooltip": "Australian Superannuation",
+                            "edge_size": 1,
+                            "edge_color": "#EBD6AF",
+                            "node_opacity": 0.95,
+                            "font_color": "#2F1847",
+                            "font_family": "Verdana",
+                            "font_size": 12,
+                            "children": [
+                                {
+                                    "name": "Insurance within the Superannuation",
+                                    "node_color": "#EBD6AF",
+                                    "node_size": 5,
+                                    "tooltip": "Insurance within the Superannuation",
+                                    "edge_size": 1,
+                                    "edge_color": "#EBD6AF",
+                                    "node_opacity": 0.95,
+                                    "font_color": "#2F1847",
+                                    "font_family": "Verdana",
+                                    "font_size": "12"
+                                },
+                                {
+                                    "name": "Inheritor",
+                                    "node_color": "#EBD6AF",
+                                    "node_size": 5,
+                                    "tooltip": "Inheritor",
+                                    "edge_size": 1,
+                                    "edge_color": "#EBD6AF",
+                                    "node_opacity": 0.95,
+                                    "font_color": "#2F1847",
+                                    "font_family": "Verdana",
+                                    "font_size": 12,
+                                    "children": [
+                                        {
+                                            "name": "Lori",
+                                            "node_color": "#EBD6AF",
+                                            "node_size": 5,
+                                            "tooltip": "Lori",
+                                            "edge_size": 1,
+                                            "edge_color": "#EBD6AF",
+                                            "node_opacity": 0.95,
+                                            "font_color": "#2F1847",
+                                            "font_family": "Verdana",
+                                            "font_size": 12,
+                                            "children": [
+                                                {
+                                                    "name": "Has up to date nominations",
+                                                    "node_color": "#EBD6AF",
+                                                    "node_size": 5,
+                                                    "tooltip": "Has up to date nominations",
+                                                    "edge_size": 1,
+                                                    "edge_color": "#EBD6AF",
+                                                    "node_opacity": 0.95,
+                                                    "font_color": "#2F1847",
+                                                    "font_family": "Verdana",
+                                                    "font_size": "12"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Investments Portfolio Discussion",
+                            "node_color": "#EBD6AF",
+                            "node_size": 5,
+                            "tooltip": "Investments Portfolio Discussion",
+                            "edge_size": 1,
+                            "edge_color": "#EBD6AF",
+                            "node_opacity": 0.95,
+                            "font_color": "#2F1847",
+                            "font_family": "Verdana",
+                            "font_size": 12,
+                            "children": [
+                                {
+                                    "name": "Portfolio Contents",
+                                    "node_color": "#EBD6AF",
+                                    "node_size": 5,
+                                    "tooltip": "Portfolio Contents",
+                                    "edge_size": 1,
+                                    "edge_color": "#EBD6AF",
+                                    "node_opacity": 0.95,
+                                    "font_color": "#2F1847",
+                                    "font_family": "Verdana",
+                                    "font_size": 12,
+                                    "children": [
+                                        {
+                                            "name": "Sale of an underperforming global fund with a capital gain",
+                                            "node_color": "#EBD6AF",
+                                            "node_size": 5,
+                                            "tooltip": "Sale of an underperforming global fund with a capital gain",
+                                            "edge_size": 1,
+                                            "edge_color": "#EBD6AF",
+                                            "node_opacity": 0.95,
+                                            "font_color": "#2F1847",
+                                            "font_family": "Verdana",
+                                            "font_size": "12"
+                                        },
+                                        {
+                                            "name": "Purchase of a new fund run by a business called Sage",
+                                            "node_color": "#EBD6AF",
+                                            "node_size": 5,
+                                            "tooltip": "Purchase of a new fund run by a business called Sage",
+                                            "edge_size": 1,
+                                            "edge_color": "#EBD6AF",
+                                            "node_opacity": 0.95,
+                                            "font_color": "#2F1847",
+                                            "font_family": "Verdana",
+                                            "font_size": "12"
+                                        },
+                                        {
+                                            "name": "High-interest bond fund",
+                                            "node_color": "#EBD6AF",
+                                            "node_size": 5,
+                                            "tooltip": "High-interest bond fund",
+                                            "edge_size": 1,
+                                            "edge_color": "#EBD6AF",
+                                            "node_opacity": 0.95,
+                                            "font_color": "#2F1847",
+                                            "font_family": "Verdana",
+                                            "font_size": "12"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Comments",
+                                    "node_color": "#EBD6AF",
+                                    "node_size": 5,
+                                    "tooltip": "Comments",
+                                    "edge_size": 1,
+                                    "edge_color": "#EBD6AF",
+                                    "node_opacity": 0.95,
+                                    "font_color": "#2F1847",
+                                    "font_family": "Verdana",
+                                    "font_size": 12,
+                                    "children": [
+                                        {
+                                            "name": "Portfolio has built up cash from ongoing contributions",
+                                            "node_color": "#EBD6AF",
+                                            "node_size": 5,
+                                            "tooltip": "Portfolio has built up cash from ongoing contributions",
+                                            "edge_size": 1,
+                                            "edge_color": "#EBD6AF",
+                                            "node_opacity": 0.95,
+                                            "font_color": "#2F1847",
+                                            "font_family": "Verdana",
+                                            "font_size": "12"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Advice",
+                                    "node_color": "#EBD6AF",
+                                    "node_size": 5,
+                                    "tooltip": "Advice",
+                                    "edge_size": 1,
+                                    "edge_color": "#EBD6AF",
+                                    "node_opacity": 0.95,
+                                    "font_color": "#2F1847",
+                                    "font_family": "Verdana",
+                                    "font_size": 12,
+                                    "children": [
+                                        {
+                                            "name": "Maintain a Cash Balance of $10,000.00 plus any additional Contributions",
+                                            "node_color": "#EBD6AF",
+                                            "node_size": 5,
+                                            "tooltip": "Maintain a Cash Balance of $10,000.00 plus any additional Contributions",
+                                            "edge_size": 1,
+                                            "edge_color": "#EBD6AF",
+                                            "node_opacity": 0.95,
+                                            "font_color": "#2F1847",
+                                            "font_family": "Verdana",
+                                            "font_size": "12"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Cars",
+                            "node_color": "#EBD6AF",
+                            "node_size": 5,
+                            "tooltip": "Cars",
+                            "edge_size": 1,
+                            "edge_color": "#EBD6AF",
+                            "node_opacity": 0.95,
+                            "font_color": "#2F1847",
+                            "font_family": "Verdana",
+                            "font_size": 12,
+                            "children": [
+                                {
+                                    "name": "Cars - Reviewed",
+                                    "node_color": "#EBD6AF",
+                                    "node_size": 5,
+                                    "tooltip": "Cars - Reviewed",
+                                    "edge_size": 1,
+                                    "edge_color": "#EBD6AF",
+                                    "node_opacity": 0.95,
+                                    "font_color": "#2F1847",
+                                    "font_family": "Verdana",
+                                    "font_size": 12,
+                                    "children": [
+                                        {
+                                            "name": "Cars - Satisfactory",
+                                            "node_color": "#EBD6AF",
+                                            "node_size": 5,
+                                            "tooltip": "Cars - Satisfactory",
+                                            "edge_size": 1,
+                                            "edge_color": "#EBD6AF",
+                                            "node_opacity": 0.95,
+                                            "font_color": "#2F1847",
+                                            "font_family": "Verdana",
+                                            "font_size": "12"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Wills",
+                            "node_color": "#EBD6AF",
+                            "node_size": 5,
+                            "tooltip": "Wills",
+                            "edge_size": 1,
+                            "edge_color": "#EBD6AF",
+                            "node_opacity": 0.95,
+                            "font_color": "#2F1847",
+                            "font_family": "Verdana",
+                            "font_size": 12,
+                            "children": [
+                                {
+                                    "name": "Reviewed already",
+                                    "node_color": "#EBD6AF",
+                                    "node_size": 5,
+                                    "tooltip": "Reviewed already",
+                                    "edge_size": 1,
+                                    "edge_color": "#EBD6AF",
+                                    "node_opacity": 0.95,
+                                    "font_color": "#2F1847",
+                                    "font_family": "Verdana",
+                                    "font_size": "12"
+                                },
+                                {
+                                    "name": "Wills - Reviewed",
+                                    "node_color": "#EBD6AF",
+                                    "node_size": 5,
+                                    "tooltip": "Wills - Reviewed",
+                                    "edge_size": 1,
+                                    "edge_color": "#EBD6AF",
+                                    "node_opacity": 0.95,
+                                    "font_color": "#2F1847",
+                                    "font_family": "Verdana",
+                                    "font_size": 12,
+                                    "children": [
+                                        {
+                                            "name": "Wills - Satisfactory",
+                                            "node_color": "#EBD6AF",
+                                            "node_size": 5,
+                                            "tooltip": "Wills - Satisfactory",
+                                            "edge_size": 1,
+                                            "edge_color": "#EBD6AF",
+                                            "node_opacity": 0.95,
+                                            "font_color": "#2F1847",
+                                            "font_family": "Verdana",
+                                            "font_size": "12"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Investment Returns",
+                            "node_color": "#EBD6AF",
+                            "node_size": 5,
+                            "tooltip": "Investment Returns",
+                            "edge_size": 1,
+                            "edge_color": "#EBD6AF",
+                            "node_opacity": 0.95,
+                            "font_color": "#2F1847",
+                            "font_family": "Verdana",
+                            "font_size": 12,
+                            "children": [
+                                {
+                                    "name": "Investment Returns - Reviewed",
+                                    "node_color": "#EBD6AF",
+                                    "node_size": 5,
+                                    "tooltip": "Investment Returns - Reviewed",
+                                    "edge_size": 1,
+                                    "edge_color": "#EBD6AF",
+                                    "node_opacity": 0.95,
+                                    "font_color": "#2F1847",
+                                    "font_family": "Verdana",
+                                    "font_size": 12,
+                                    "children": [
+                                        {
+                                            "name": "Investment Returns - Satisfactory",
+                                            "node_color": "#EBD6AF",
+                                            "node_size": 5,
+                                            "tooltip": "Investment Returns - Satisfactory",
+                                            "edge_size": 1,
+                                            "edge_color": "#EBD6AF",
+                                            "node_opacity": 0.95,
+                                            "font_color": "#2F1847",
+                                            "font_family": "Verdana",
+                                            "font_size": "12"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "14% up to the end of February from the Previous Year",
+                                    "node_color": "#EBD6AF",
+                                    "node_size": 5,
+                                    "tooltip": "14% up to the end of February from the Previous Year",
+                                    "edge_size": 1,
+                                    "edge_color": "#EBD6AF",
+                                    "node_opacity": 0.95,
+                                    "font_color": "#2F1847",
+                                    "font_family": "Verdana",
+                                    "font_size": "12"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "Liabilities",
+                    "node_color": "#DD9787",
+                    "node_size": 5,
+                    "tooltip": "Liabilities",
+                    "edge_size": 1,
+                    "edge_color": "#DD9787",
+                    "node_opacity": 0.95,
+                    "font_color": "#2F1847",
+                    "font_family": "Verdana",
+                    "font_size": 12,
+                    "children": [
+                        {
+                            "name": "Tax Deduction",
+                            "node_color": "#EBD6AF",
+                            "node_size": 5,
+                            "tooltip": "Tax Deduction",
+                            "edge_size": 1,
+                            "edge_color": "#EBD6AF",
+                            "node_opacity": 0.95,
+                            "font_color": "#2F1847",
+                            "font_family": "Verdana",
+                            "font_size": 12,
+                            "children": [
+                                {
+                                    "name": "Address Clients Contribution",
+                                    "node_color": "#EBD6AF",
+                                    "node_size": 5,
+                                    "tooltip": "Address Clients Contribution",
+                                    "edge_size": 1,
+                                    "edge_color": "#EBD6AF",
+                                    "node_opacity": 0.95,
+                                    "font_color": "#2F1847",
+                                    "font_family": "Verdana",
+                                    "font_size": "12",
+                                    "children": [
+                                        {
+                                            "name": "June",
+                                            "node_color": "#EBD6AF",
+                                            "node_size": 5,
+                                            "tooltip": "June",
+                                            "edge_size": 1,
+                                            "edge_color": "#EBD6AF",
+                                            "node_opacity": 0.95,
+                                            "font_color": "#2F1847",
+                                            "font_family": "Verdana",
+                                            "font_size": "12"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Topic for Next Meeting",
+            "node_color": "#C62E65",
+            "node_size": 8,
+            "tooltip": "Topic for Next Meeting",
+            "edge_size": 1,
+            "edge_color": "#C62E65",
+            "node_opacity": 0.95,
+            "font_color": "#2F1847",
+            "font_family": "Verdana",
+            "font_size": 15,
+            "children": [
+                {
+                    "name": "Financial Situation",
+                    "node_color": "#DD9787",
+                    "node_size": 5,
+                    "tooltip": "Financial Situation",
+                    "edge_size": 1,
+                    "edge_color": "#DD9787",
+                    "node_opacity": 0.95,
+                    "font_color": "#2F1847",
+                    "font_family": "Verdana",
+                    "font_size": 12,
+                    "children": [
+                        {
+                            "name": "The clients fathers well-being",
+                            "node_color": "#EBD6AF",
+                            "node_size": 5,
+                            "tooltip": "The clients fathers well-being",
+                            "edge_size": 1,
+                            "edge_color": "#EBD6AF",
+                            "node_opacity": 0.95,
+                            "font_color": "#2F1847",
+                            "font_family": "Verdana",
+                            "font_size": "12"
+                        },
+                        {
+                            "name": "Financial Implications following the passing of their mother.",
+                            "node_color": "#EBD6AF",
+                            "node_size": 5,
+                            "tooltip": "Financial Implications following the passing of their mother.",
+                            "edge_size": 1,
+                            "edge_color": "#EBD6AF",
+                            "node_opacity": 0.95,
+                            "font_color": "#2F1847",
+                            "font_family": "Verdana",
+                            "font_size": "12"
+                        }
+                    ]
+                },
+                {
+                    "name": "Upcoming expenses",
+                    "node_color": "#EBD6AF",
+                    "node_size": 5,
+                    "tooltip": "Upcoming expenses",
+                    "edge_size": 1,
+                    "edge_color": "#EBD6AF",
+                    "node_opacity": 0.95,
+                    "font_color": "#2F1847",
+                    "font_family": "Verdana",
+                    "font_size": "12"
+                },
+                {
+                    "name": "Investment Portfolio",
+                    "node_color": "#DD9787",
+                    "node_size": 5,
+                    "tooltip": "Investment Portfolio",
+                    "edge_size": 1,
+                    "edge_color": "#DD9787",
+                    "node_opacity": 0.95,
+                    "font_color": "#2F1847",
+                    "font_family": "Verdana",
+                    "font_size": 12,
+                    "children": [
+                        {
+                            "name": "Changes that may be required.",
+                            "node_color": "#EBD6AF",
+                            "node_size": 5,
+                            "tooltip": "Changes that may be required.",
+                            "edge_size": 1,
+                            "edge_color": "#EBD6AF",
+                            "node_opacity": 0.95,
+                            "font_color": "#2F1847",
+                            "font_family": "Verdana",
+                            "font_size": "12"
+                        }
+                    ]
+                },
+                {
+                    "name": "Superannuation Funds",
+                    "node_color": "#DD9787",
+                    "node_size": 5,
+                    "tooltip": "Superannuation Funds",
+                    "edge_size": 1,
+                    "edge_color": "#DD9787",
+                    "node_opacity": 0.95,
+                    "font_color": "#2F1847",
+                    "font_family": "Verdana",
+                    "font_size": 12,
+                    "children": [
+                        {
+                            "name": "Balance in Australian Super",
+                            "node_color": "#EBD6AF",
+                            "node_size": 5,
+                            "tooltip": "Balance in Australian Super",
+                            "edge_size": 1,
+                            "edge_color": "#EBD6AF",
+                            "node_opacity": 0.95,
+                            "font_color": "#2F1847",
+                            "font_family": "Verdana",
+                            "font_size": "12"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

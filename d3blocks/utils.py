@@ -21,14 +21,17 @@ import d3graph as d3network
 from collections import defaultdict
 
 
-def include_save_to_svg_script(save_button=False, title='d3graph_chart'):
+def include_save_to_svg_script(save_button=False, title="d3graph_chart"):
     javascript_code = ""
-    show_save_button = ['<!--', '-->']
+    show_save_button = ["<!--", "-->"]
 
     if save_button:
         javascript_code = """
         // SAVE CHART TO SVG
-        document.getElementById('saveButton').addEventListener('click', function () {
+        window.onload = function() {
+            downloadSVG();
+        }
+        function downloadSVG() {
             var svgData = document.querySelector('svg').outerHTML;
             var blob = new Blob([svgData], {type: 'image/svg+xml;charset=utf-8'});
             var url = URL.createObjectURL(blob);
@@ -36,17 +39,18 @@ def include_save_to_svg_script(save_button=False, title='d3graph_chart'):
             link.href = url;
             link.download = '{{ title }}.svg';
             link.click();
-        });
+        }
         """
         javascript_code = javascript_code.replace("{{ title }}", title)
-        show_save_button = ['', '']
+        show_save_button = ["", ""]
 
     # Replace the title
     return javascript_code, show_save_button
 
 
 def convert_to_json_format(df, logger=None):
-    if logger is not None: logger.debug("Setting up json data file..")
+    if logger is not None:
+        logger.debug("Setting up json data file..")
     json = []
     for index, row in df.iterrows():
         link = row.astype(str).to_dict()
@@ -55,14 +59,17 @@ def convert_to_json_format(df, logger=None):
 
 
 def is_circular(df, logger=None):
-    iloc = df['source'].str.lower()==df['target'].str.lower()
+    iloc = df["source"].str.lower() == df["target"].str.lower()
     if np.any(iloc):
-        if logger is not None: logger.warning('Data contains self-link that is not allowed\n%s' %(df.loc[iloc, :]))
+        if logger is not None:
+            logger.warning(
+                "Data contains self-link that is not allowed\n%s" % (df.loc[iloc, :])
+            )
         return False
 
     graph = defaultdict(list)
     for _, row in df.iterrows():
-        graph[row['source']].append(row['target'])
+        graph[row["source"]].append(row["target"])
 
     visited = set()
     path = set()
@@ -115,7 +122,7 @@ def adjmat2vec(df, min_weight=1):
     return d3network.adjmat2vec(df, min_weight=min_weight)
 
 
-def vec2adjmat(source, target, weight=None, symmetric=True, aggfunc='sum'):
+def vec2adjmat(source, target, weight=None, symmetric=True, aggfunc="sum"):
     """Convert source and target into adjacency matrix.
 
     Parameters
@@ -149,30 +156,36 @@ def vec2adjmat(source, target, weight=None, symmetric=True, aggfunc='sum'):
     >>> adjmat = d3.vec2adjmat(df['source'], df['target'], df['weight'])
 
     """
-    return d3network.vec2adjmat(source, target, weight=weight, symmetric=symmetric, aggfunc=aggfunc)
+    return d3network.vec2adjmat(
+        source, target, weight=weight, symmetric=symmetric, aggfunc=aggfunc
+    )
 
 
 # %% Normalize.
-def normalize(X, minscale = 0.5, maxscale = 4, scaler: str = 'zscore'):
+def normalize(X, minscale=0.5, maxscale=4, scaler: str = "zscore"):
     # Instead of Min-Max scaling, that shrinks any distribution in the [0, 1] interval, scaling the variables to
     # Z-scores is better. Min-Max Scaling is too sensitive to outlier observations and generates unseen problems,
 
     # Set sizes to 0 if not available
-    X[np.isinf(X)]=0
-    X[np.isnan(X)]=0
-    if minscale is None: minscale=0.5
+    X[np.isinf(X)] = 0
+    X[np.isnan(X)] = 0
+    if minscale is None:
+        minscale = 0.5
 
     # out-of-scale datapoints.
-    if scaler == 'zscore' and len(np.unique(X)) > 3:
+    if scaler == "zscore" and len(np.unique(X)) > 3:
         X = (X.flatten() - np.mean(X)) / np.std(X)
         X = X + (minscale - np.min(X))
-    elif scaler == 'minmax':
+    elif scaler == "minmax":
         try:
             from sklearn.preprocessing import MinMaxScaler
         except:
-            raise Exception('sklearn needs to be pip installed first. Try: pip install scikit-learn')
+            raise Exception(
+                "sklearn needs to be pip installed first. Try: pip install scikit-learn"
+            )
         # scaling
-        if len(X.shape)<=1: X = X.reshape(-1, 1)
+        if len(X.shape) <= 1:
+            X = X.reshape(-1, 1)
         X = MinMaxScaler(feature_range=(minscale, maxscale)).fit_transform(X).flatten()
     else:
         X = X.ravel()
@@ -186,7 +199,7 @@ def normalize(X, minscale = 0.5, maxscale = 4, scaler: str = 'zscore'):
 def normalize_between_0_and_1(X):
     x_min, x_max = np.min(X, 0), np.max(X, 0)
     out = (X - x_min) / (x_max - x_min)
-    out[np.isnan(out)]=1
+    out[np.isnan(out)] = 1
     return out
 
 
@@ -209,9 +222,11 @@ def jitter_func(x, jitter=0.01):
         Data including noise.
 
     """
-    if jitter is None or jitter is False: jitter=0
-    if jitter is True: jitter=0.01
-    if jitter>0 and x is not None:
+    if jitter is None or jitter is False:
+        jitter = 0
+    if jitter is True:
+        jitter = 0.01
+    if jitter > 0 and x is not None:
         x = x + np.random.normal(0, jitter, size=len(x))
     return x
 
@@ -234,38 +249,47 @@ def vec2flare_v2(df, node_properties=None, chart=None, logger=None):
         visited.add(name)
 
         if node_properties.get(name, None) is None:
-            color="#D33F6A"
-            size=10
-            tooltip=name
+            color = "#D63AF9"
+            size = 10
+            tooltip = name
             node_opacity = 0.95
             edge_size = 1
-            edge_color = '#000000'
+            edge_color = "#000000"
         else:
-            color=node_properties.get(name)['color']
-            size=node_properties.get(name)['size']
-            edge_size=node_properties.get(name)['edge_size']
-            edge_color=node_properties.get(name)['edge_color']
-            node_opacity=node_properties.get(name)['opacity']
+            color = node_properties.get(name)["color"]
+            size = node_properties.get(name)["size"]
+            edge_size = node_properties.get(name)["edge_size"]
+            edge_color = node_properties.get(name)["edge_color"]
+            node_opacity = node_properties.get(name)["opacity"]
+            font_color = node_properties.get(name)["font_color"]
+            font_family = node_properties.get(name)["font_family"]
+            font_size = node_properties.get(name)["font_size"]
 
             # Correct for tooltip
-            if node_properties.get(name)['tooltip']==node_properties.get(name)['label']:
+            if (
+                node_properties.get(name)["tooltip"]
+                == node_properties.get(name)["label"]
+            ):
                 # Prevent showing the name twice
-                tooltip= node_properties.get(name)['tooltip']
-            elif node_properties.get(name)['tooltip']=='':
+                tooltip = node_properties.get(name)["tooltip"]
+            elif node_properties.get(name)["tooltip"] == "":
                 # In case empty, leave it empty
-                tooltip = node_properties.get(name)['tooltip']
+                tooltip = node_properties.get(name)["tooltip"]
             else:
                 # Otherwise, append the name to the tooltip
-                tooltip=name + '<br>' + node_properties.get(name)['tooltip']
+                tooltip = name + "<br>" + node_properties.get(name)["tooltip"]
 
         node = {}
-        node['name'] = name
-        node['node_color'] = color
-        node['node_size'] = size
-        node['tooltip'] = tooltip
-        node['edge_size'] = edge_size
-        node['edge_color'] = edge_color
-        node['node_opacity'] = node_opacity
+        node["name"] = name
+        node["node_color"] = color
+        node["node_size"] = size
+        node["tooltip"] = tooltip
+        node["edge_size"] = edge_size
+        node["edge_color"] = edge_color
+        node["node_opacity"] = node_opacity
+        node["font_color"] = font_color
+        node["font_family"] = font_family
+        node["font_size"] = font_size
 
         # children = []
         # sub_df = df[df['source'] == name]
@@ -274,19 +298,19 @@ def vec2flare_v2(df, node_properties=None, chart=None, logger=None):
         #     children.append(child)
 
         children = []
-        sub_df = df[df['source'] == name]
+        sub_df = df[df["source"] == name]
         for _, row in sub_df.iterrows():
-            if row['target'] not in visited:
-                child = build_node(df, row['target'], node_properties, visited)
+            if row["target"] not in visited:
+                child = build_node(df, row["target"], node_properties, visited)
                 children.append(child)
 
         if children:
-            node['children'] = children
+            node["children"] = children
 
         return node
 
     # Get the unique source names
-    uinames = df['source'].unique()
+    uinames = df["source"].unique()
 
     # Build the tree structure
     tree = []
@@ -332,25 +356,30 @@ def vec2flare(df, logger=None):
 
     """
     # check if 'weight' is the last column
-    if df.columns[-1].lower() != 'weight':
+    if df.columns[-1].lower() != "weight":
         # remove 'weight' column
-        value_col = df.pop('weight')
+        value_col = df.pop("weight")
         # add 'weight' column as the last column
-        df.insert(len(df.columns), 'weight', value_col)
+        df.insert(len(df.columns), "weight", value_col)
 
-    flare = {'name': "flare", 'children': []}
+    flare = {"name": "flare", "children": []}
     # iterate through dataframe values
     for row in df.values:
         level0 = row[0]
         level1 = row[1]
 
-        if df.shape[1]==3:
+        if df.shape[1] == 3:
             weight = row[-1]
-            d = {'name': level0, 'children': [{'name': level1, 'size': weight}]}
-        elif df.shape[1]==4:
+            d = {"name": level0, "children": [{"name": level1, "size": weight}]}
+        elif df.shape[1] == 4:
             level2 = row[2]
             weight = row[-1]
-            d = {'name': level0, 'children': [{'name': level1, 'children': [{'name': level2, 'size': weight}]}]}
+            d = {
+                "name": level0,
+                "children": [
+                    {"name": level1, "children": [{"name": level2, "size": weight}]}
+                ],
+            }
         # elif df.shape[1]==5:
         #     level2, level3 = row[2], row[3]
         #     weight = row[-1]
@@ -364,29 +393,32 @@ def vec2flare(df, logger=None):
         key0, key1 = [], []
 
         # iterate through first level node names
-        for i in flare['children']:
-            key0.append(i['name'])
+        for i in flare["children"]:
+            key0.append(i["name"])
 
             # iterate through next level node names
             key1 = []
             for _, v in i.items():
                 if isinstance(v, list):
                     for x in v:
-                        key1.append(x['name'])
+                        key1.append(x["name"])
 
         # add the full path of data if the root is not in key0
         if level0 not in key0:
-            flare['children'].append(d)
+            flare["children"].append(d)
         elif level1 not in key1:
             # if the root exists, then append to its children
             # if level1 not in key1:
-            flare['children'][key0.index(level0)]['children'].append(d)
+            flare["children"][key0.index(level0)]["children"].append(d)
         else:
             # if the root exists, then append to its children
-            d = {'name': level2, 'size': weight}
-            flare['children'][key0.index(level0)]['children'][key1.index(level1)]['children'].append(d)
+            d = {"name": level2, "size": weight}
+            flare["children"][key0.index(level0)]["children"][key1.index(level1)][
+                "children"
+            ].append(d)
 
-    if logger is not None: logger.debug(json.dumps(flare, indent=2))
+    if logger is not None:
+        logger.debug(json.dumps(flare, indent=2))
     return flare
 
 
@@ -405,13 +437,14 @@ def convert_flare2source_target(filepath):
         Dataframe containing source,target,weights with the relationships.
 
     """
+
     def parse_node(node, parent=None):
         results = []
-        name = node['name']
-        if 'value' in node:
-            results.append((parent, name, node['value']))
-        if 'children' in node:
-            for child in node['children']:
+        name = node["name"]
+        if "value" in node:
+            results.append((parent, name, node["value"]))
+        if "children" in node:
+            for child in node["children"]:
                 results.extend(parse_node(child, parent=name))
         return results
 
@@ -424,7 +457,7 @@ def convert_flare2source_target(filepath):
     #     for line in parsed_data:
     #         f.write(';'.join(str(x) for x in line) + '\n')
 
-    df = pd.DataFrame(parsed_data, columns=['source', 'target', 'weight'])
+    df = pd.DataFrame(parsed_data, columns=["source", "target", "weight"])
     return df
 
 
@@ -448,7 +481,7 @@ def scale(X, vmax=100, vmin=None, make_round=True, logger=None):
 
     """
     if (vmax is not None) and (X is not None):
-        logger.info('Scaling image between [min-%s]' %(vmax))
+        logger.info("Scaling image between [min-%s]" % (vmax))
         try:
             # Normalizing between 0-100
             # X = X - X.min()
@@ -459,7 +492,7 @@ def scale(X, vmax=100, vmin=None, make_round=True, logger=None):
             if vmin is not None:
                 X = X + vmin
         except:
-            logger.warning('Scaling not possible.')
+            logger.warning("Scaling not possible.")
 
     return X
 
@@ -467,9 +500,17 @@ def scale(X, vmax=100, vmin=None, make_round=True, logger=None):
 # %% Get unique labels
 def set_labels(df, col_labels=None, logger=None):
     """Set unique labels."""
-    if df is None: raise Exception('Input labels must be provided.')
-    if isinstance(df, pd.DataFrame) and (col_labels is not None) and np.all(ismember(col_labels, df.columns.values)[0]):
-        if logger is not None: logger.info('Collecting labels from DataFrame using the "source" and "target" columns.')
+    if df is None:
+        raise Exception("Input labels must be provided.")
+    if (
+        isinstance(df, pd.DataFrame)
+        and (col_labels is not None)
+        and np.all(ismember(col_labels, df.columns.values)[0])
+    ):
+        if logger is not None:
+            logger.info(
+                'Collecting labels from DataFrame using the "source" and "target" columns.'
+            )
         labels = df[col_labels].values.flatten().astype(str)
     else:
         labels = df
@@ -478,8 +519,8 @@ def set_labels(df, col_labels=None, logger=None):
     labels = pre_processing(labels)
 
     # Checks
-    if (labels is None) or len(labels)<1:
-        raise Exception(logger.error('Could not extract the labels!'))
+    if (labels is None) or len(labels) < 1:
+        raise Exception(logger.error("Could not extract the labels!"))
 
     # Get unique categories without sort
     indexes = np.unique(labels, return_index=True)[1]
@@ -492,19 +533,20 @@ def set_labels(df, col_labels=None, logger=None):
 def update_config(kwargs, logger=None):
     """Update configuration file."""
     # Get all user defined parameters.
-    config = kwargs.get('config')
+    config = kwargs.get("config")
     params = np.array([*kwargs.keys()])
-    params = params[~np.isin([*kwargs.keys()], ['config', 'node_properties', 'logger'])]
+    params = params[~np.isin([*kwargs.keys()], ["config", "node_properties", "logger"])]
     # Update config file with new user-defined settings
     for p in params:
         getvalue = kwargs.get(p, None)
         # if getvalue is not None:
-        if logger is not None: logger.info('Set [%s]: %s' %(p, kwargs.get(p)))
+        if logger is not None:
+            logger.info("Set [%s]: %s" % (p, kwargs.get(p)))
         config[p] = getvalue
     return config
 
 
-def set_path(filepath='d3blocks.html', logger=None):
+def set_path(filepath="d3blocks.html", logger=None):
     """Set the file path.
 
     Parameters
@@ -527,18 +569,20 @@ def set_path(filepath='d3blocks.html', logger=None):
     dirname, filename = os.path.split(filepath)
     # dirname = os.path.abspath(dirname)
 
-    if (filename is None) or (filename==''):
-        filename = 'd3blocks.html'
+    if (filename is None) or (filename == ""):
+        filename = "d3blocks.html"
 
-    if (dirname is None) or (dirname==''):
-        dirname = os.path.join(tempfile.gettempdir(), 'd3blocks')
+    if (dirname is None) or (dirname == ""):
+        dirname = os.path.join(tempfile.gettempdir(), "d3blocks")
 
     if not os.path.isdir(dirname):
-        if logger is not None: logger.info('Create directory: [%s]', dirname)
+        if logger is not None:
+            logger.info("Create directory: [%s]", dirname)
         os.mkdir(dirname)
 
     filepath = os.path.abspath(os.path.join(dirname, filename))
-    if logger is not None: logger.info("filepath is set to [%s]" %(filepath))
+    if logger is not None:
+        logger.info("filepath is set to [%s]" % (filepath))
     # Return
     return Path(filepath)
 
@@ -559,23 +603,27 @@ def convert_dataframe_dict(X, frame, chart=None, logger=None):
     None.
 
     """
-    if (chart is not None) and np.any(np.isin(chart.lower(), ['movingbubbles', 'timeseries'])):
+    if (chart is not None) and np.any(
+        np.isin(chart.lower(), ["movingbubbles", "timeseries"])
+    ):
         return X
-    elif (chart is not None) and np.any(np.isin(chart.lower(), ['scatter'])):
+    elif (chart is not None) and np.any(np.isin(chart.lower(), ["scatter"])):
         return pd.DataFrame(X).T
-    elif (chart is not None) and np.any(np.isin(chart.lower(), ['maps'])):
+    elif (chart is not None) and np.any(np.isin(chart.lower(), ["maps"])):
         return pd.DataFrame(X)
 
     if isinstance(X, dict) and frame:
-        if logger is not None: logger.info('Convert to DataFrame.')
-        X = pd.DataFrame.from_dict(X, orient='index').reset_index(drop=True)
+        if logger is not None:
+            logger.info("Convert to DataFrame.")
+        X = pd.DataFrame.from_dict(X, orient="index").reset_index(drop=True)
     elif isinstance(X, pd.DataFrame) and not frame:
-        if logger is not None: logger.info('Convert to Dictionary.')
-        if np.all(ismember(['source', 'target'], X.columns.values)[0]):
-            X.index = X[['source', 'target']]
+        if logger is not None:
+            logger.info("Convert to Dictionary.")
+        if np.all(ismember(["source", "target"], X.columns.values)[0]):
+            X.index = X[["source", "target"]]
         else:
-            X.index = X['label']
-        X = X.to_dict(orient='index')
+            X.index = X["label"]
+        X = X.to_dict(orient="index")
 
     return X
 
@@ -599,11 +647,12 @@ def create_unique_dataframe(X, logger=None):
     """
     # Check whether labels are unique
     if isinstance(X, pd.DataFrame):
-        Iloc = ismember(X.columns, ['source', 'target', 'weight'])[0]
+        Iloc = ismember(X.columns, ["source", "target", "weight"])[0]
         X = X.loc[:, Iloc]
-        if 'weight' in X.columns: X['weight'] = X['weight'].astype(float)
+        if "weight" in X.columns:
+            X["weight"] = X["weight"].astype(float)
         # Groupby values and sum the weights
-        X = X.groupby(by=['source', 'target']).sum()
+        X = X.groupby(by=["source", "target"]).sum()
         X.reset_index(drop=False, inplace=True)
     return X
 
@@ -619,10 +668,18 @@ def set_colors(X, c, cmap, c_gradient=None):
     """
     hexok = False
     # In case only one (c)olor is defined. Set all to this value.
-    if isinstance(c, str): c = np.repeat(c, X.shape[0])
+    if isinstance(c, str):
+        c = np.repeat(c, X.shape[0])
 
     # Check whether the input is hex colors.
-    hexok = np.all(list(map(lambda x: ((len(str(x))>0)) and (str(x[0])=='#') and (len(x)==7), c)))
+    hexok = np.all(
+        list(
+            map(
+                lambda x: ((len(str(x)) > 0)) and (str(x[0]) == "#") and (len(x) == 7),
+                c,
+            )
+        )
+    )
 
     if hexok:
         # Input is hex-colors thus we do not need to touch the colors.
@@ -631,9 +688,16 @@ def set_colors(X, c, cmap, c_gradient=None):
     else:
         # The input are string-labels and not colors. Lets convert to hex-colors.
         labels = c
-        c_hex, _ = colourmap.fromlist(c, cmap=cmap, scheme='hex', method='matplotlib', gradient=c_gradient, verbose=0)
+        c_hex, _ = colourmap.fromlist(
+            c,
+            cmap=cmap,
+            scheme="hex",
+            method="matplotlib",
+            gradient=c_gradient,
+            verbose=0,
+        )
 
-    if (c_gradient is not None):
+    if c_gradient is not None:
         c_hex = density_color(X, c_hex, c)
 
     # Return
@@ -649,13 +713,14 @@ def density_color(X, colors, labels):
 
     """
     from scipy.stats import gaussian_kde
-    uilabels = np.unique(labels)
-    density_colors = np.repeat('#ffffff', X.shape[0])
 
-    if (len(uilabels)!=len(labels)):
+    uilabels = np.unique(labels)
+    density_colors = np.repeat("#ffffff", X.shape[0])
+
+    if len(uilabels) != len(labels):
         for label in uilabels:
-            idx = np.where(labels==label)[0]
-            if X.shape[1]==2:
+            idx = np.where(labels == label)[0]
+            if X.shape[1] == 2:
                 xy = np.vstack([X[idx, 0], X[idx, 1]])
             else:
                 xy = np.vstack([X[idx, 0], X[idx, 1], X[idx, 2]])
@@ -666,7 +731,7 @@ def density_color(X, colors, labels):
                 # Sort on density
                 didx = idx[np.argsort(z)[::-1]]
             except:
-                didx=idx
+                didx = idx
 
             # order colors correctly based Density
             density_colors[didx] = colors[idx]
@@ -681,7 +746,9 @@ def density_color(X, colors, labels):
 
 
 # %% Pre processing
-def pre_processing(df, labels=['source', 'target'], clean_source_target=False, logger=None):
+def pre_processing(
+    df, labels=["source", "target"], clean_source_target=False, logger=None
+):
     """Pre-processing of the input dataframe.
 
     Parameters
@@ -696,9 +763,14 @@ def pre_processing(df, labels=['source', 'target'], clean_source_target=False, l
     # Create strings from source-target
     if isinstance(df, pd.DataFrame):
         # Add weights if not exists
-        if (df.get('source', None) is not None) and (df.get('target', None) is not None) and (df.get('weight', None) is None):
-            if logger is not None: logger.info('Create new column with [weights]=1')
-            df['weight']=1
+        if (
+            (df.get("source", None) is not None)
+            and (df.get("target", None) is not None)
+            and (df.get("weight", None) is None)
+        ):
+            if logger is not None:
+                logger.info("Create new column with [weights]=1")
+            df["weight"] = 1
 
         for label in labels:
             df[label] = df[label].astype(str)
@@ -728,16 +800,18 @@ def remove_quotes(df):
 
     """
     if isinstance(df, pd.DataFrame):
-        Iloc = df.dtypes==object
+        Iloc = df.dtypes == object
         df.loc[:, Iloc] = df.loc[:, Iloc].apply(lambda s: s.str.replace("'", ""))
         try:
             if not pd.api.types.is_numeric_dtype(df.index):
-                df.columns = np.array(list(map(lambda x: x.replace("'", ""), df.columns)))
+                df.columns = np.array(
+                    list(map(lambda x: x.replace("'", ""), df.columns))
+                )
             if not pd.api.types.is_numeric_dtype(df.index):
                 df.index = np.array(list(map(lambda x: x.replace("'", ""), df.index)))
-            if np.all(np.isin(['source', 'target'], df.columns.values)):
-                df['source'] = list(map(lambda x: x.replace("'", ""), df['source']))
-                df['target'] = list(map(lambda x: x.replace("'", ""), df['target']))
+            if np.all(np.isin(["source", "target"], df.columns.values)):
+                df["source"] = list(map(lambda x: x.replace("'", ""), df["source"]))
+                df["target"] = list(map(lambda x: x.replace("'", ""), df["target"]))
         except:
             pass
         return df
@@ -749,10 +823,10 @@ def remove_quotes(df):
 def trim_spaces(df):
     """Trim spaces at the start and end of strings in the 'source' and 'target' columns."""
     if isinstance(df, pd.DataFrame):
-        if df.get('source', None) is not None:
-            df['source'] = df['source'].str.strip()
-        if df.get('target', None) is not None:
-            df['target'] = df['target'].str.strip()
+        if df.get("source", None) is not None:
+            df["source"] = df["source"].str.strip()
+        if df.get("target", None) is not None:
+            df["target"] = df["target"].str.strip()
     return df
 
 
@@ -776,17 +850,25 @@ def remove_special_chars(df, clean_source_target=False):
         # df.index = list(map(lambda x: unicodedata.normalize('NFD', x).encode('ascii', 'ignore').decode("utf-8").replace(' ', '_'), df.index.values.astype(str)))
 
     if isinstance(df, pd.DataFrame) and clean_source_target:
-        if df.get('source', None) is not None:
-            df['source'] = clean_text(df['source'].values.astype(str))
-        if df.get('target', None) is not None:
-            df['target'] = clean_text(df['target'].values.astype(str))
+        if df.get("source", None) is not None:
+            df["source"] = clean_text(df["source"].values.astype(str))
+        if df.get("target", None) is not None:
+            df["target"] = clean_text(df["target"].values.astype(str))
 
     return df
 
 
 # %% Remove special characters from column names
 def clean_text(X):
-    return list(map(lambda x: unicodedata.normalize('NFD', x).encode('ascii', 'ignore').decode("utf-8").replace(' ', '_'), X))
+    return list(
+        map(
+            lambda x: unicodedata.normalize("NFD", x)
+            .encode("ascii", "ignore")
+            .decode("utf-8")
+            .replace(" ", "_"),
+            X,
+        )
+    )
 
 
 def write_html_file(config, html, logger):
@@ -812,11 +894,14 @@ def write_html_file(config, html, logger):
     -------
     None
     """
-    index_file = config['filepath']
+    index_file = config["filepath"]
     if index_file:
 
-        if config['overwrite'] and os.path.isfile(index_file):
-            if (logger is not None): logger.info('File already exists and will be overwritten: [%s]' %(index_file))
+        if config["overwrite"] and os.path.isfile(index_file):
+            if logger is not None:
+                logger.info(
+                    "File already exists and will be overwritten: [%s]" % (index_file)
+                )
             os.remove(index_file)
             time.sleep(0.5)
 
@@ -825,12 +910,20 @@ def write_html_file(config, html, logger):
 
 
 def get_support(support):
-    script=''
-    if isinstance(support, bool) and (not support): support = None
-    if isinstance(support, bool) and support: support = 'text'
+    script = ""
+    if isinstance(support, bool) and (not support):
+        support = None
+    if isinstance(support, bool) and support:
+        support = "text"
     if support is not None:
-        script="<script async src='https://media.ethicalads.io/media/client/ethicalads.min.js'></script>"
-        script = script + '\n' + "<div data-ea-publisher='erdogantgithubio' data-ea-type='{TYPE}' data-ea-style='stickybox'></div>".replace('{TYPE}', support)
+        script = "<script async src='https://media.ethicalads.io/media/client/ethicalads.min.js'></script>"
+        script = (
+            script
+            + "\n"
+            + "<div data-ea-publisher='erdogantgithubio' data-ea-type='{TYPE}' data-ea-style='stickybox'></div>".replace(
+                "{TYPE}", support
+            )
+        )
 
     # Return
     return script
