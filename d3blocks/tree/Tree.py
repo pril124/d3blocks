@@ -113,14 +113,14 @@ def set_node_properties(df, **kwargs):
         dict_labels[label] = {
             "id": i,
             "label": label,
-            "color": "#EBD6AF",
-            "size": 5,
+            "color": "#C62E65",
+            "size": 8,
             "tooltip": label,
             "edge_size": 1,
-            "edge_color": "#EBD6AF",
+            "edge_color": "#C62E65",
             "opacity": 0.95,
-            "font_family": "Verdana",
-            "font_size": "12",
+            "font_family": "Tahoma",
+            "font_size": "14",
             "font_color": "#2F1847",
             "link_color": "#F9B3D1",
         }
@@ -224,6 +224,7 @@ def write_html(X, config, logger=None):
         "SAVE_BUTTON_STOP": show_save_button[1],
     }
 
+    # print(save_script)
     try:
         jinja_env = Environment(
             loader=PackageLoader(package_name=__name__, package_path="d3js")
@@ -233,7 +234,7 @@ def write_html(X, config, logger=None):
             loader=PackageLoader(package_name="d3blocks.tree", package_path="d3js")
         )
 
-    index_template = jinja_env.get_template("tree.html.j2")
+    index_template = jinja_env.get_template("tree2.html.j2")
 
     # Generate html content
     html = index_template.render(content)

@@ -241,7 +241,7 @@ def vec2flare_v2(df, node_properties=None, chart=None, logger=None):
     # df = pd.DataFrame(data)
 
     # Function to recursively build the nested structure
-    def build_node(df, name, node_properties=None, visited=None):
+    def build_node(df, name, node_properties=None, visited=None, path_color=None):
         if visited is None:
             visited = set()
         if name in visited:
@@ -290,6 +290,8 @@ def vec2flare_v2(df, node_properties=None, chart=None, logger=None):
         node["font_color"] = font_color
         node["font_family"] = font_family
         node["font_size"] = font_size
+        if path_color is not None:
+            node["path_color"] = path_color
 
         # children = []
         # sub_df = df[df['source'] == name]
@@ -301,7 +303,9 @@ def vec2flare_v2(df, node_properties=None, chart=None, logger=None):
         sub_df = df[df["source"] == name]
         for _, row in sub_df.iterrows():
             if row["target"] not in visited:
-                child = build_node(df, row["target"], node_properties, visited)
+                child = build_node(
+                    df, row["target"], node_properties, visited, row["path_color"]
+                )
                 children.append(child)
 
         if children:
